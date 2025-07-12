@@ -40,6 +40,10 @@ For example:
       - targets: ['192.168.10.210:9100']
 ```
 
+Then, graphs can be created to visualize the data in tools like Grafana.
+
+![Grafana Example](img/grafana.png)
+
 ## License
 
 This project is licensed under the [BSD License](LICENSE).
