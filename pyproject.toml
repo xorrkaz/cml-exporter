@@ -1,0 +1,15 @@
+[build-system]
+requires = ["uv-build"]
+build-backend = "uv_build"
+
+[project]
+name = "cml-exporter"
+version = "1.0.0"
+requires-python = ">=3.12"
+dependencies = ["requests", "prometheus_client"]
+
+[tool.black]
+line-length = 140
+
+[dependency-groups]
+dev = ["pytest"]
