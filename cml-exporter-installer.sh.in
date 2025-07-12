@@ -13,7 +13,7 @@ ensure_dir() {
 install_default() {
     local install_dir="/etc/default"
     ensure_dir $install_dir
-    cat >"$install_dir/cml-exporter" <<EOF
+    cat >"$install_dir/cml-exporter" <<'EOF'
 @cml_exporter@
 EOF
     chown root:root "$install_dir/cml-exporter"
@@ -24,7 +24,7 @@ install_script() {
     local install_dir="/usr/local/bin"
     ensure_dir $install_dir
 
-    cat >"$install_dir/cml-exporter.py" <<EOF
+    cat >"$install_dir/cml-exporter.py" <<'EOF'
 @cml_exporter_py@
 EOF
     chown root:root "$install_dir/cml-exporter.py"
@@ -34,7 +34,7 @@ EOF
 install_service_unit() {
     local install_dir="/etc/systemd/system"
     ensure_dir $install_dir
-    cat >"$install_dir/cml-exporter.service" <<EOF
+    cat >"$install_dir/cml-exporter.service" <<'EOF'
 @cml_exporter_service@
 EOF
     chown root:root "$install_dir/cml-exporter.service"

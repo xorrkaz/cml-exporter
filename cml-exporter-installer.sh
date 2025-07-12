@@ -13,7 +13,7 @@ ensure_dir() {
 install_default() {
     local install_dir="/etc/default"
     ensure_dir $install_dir
-    cat >"$install_dir/cml-exporter" <<EOF
+    cat >"$install_dir/cml-exporter" <<'EOF'
 # An administrative username for CML that would have access to all labs.
 CML_USERNAME="admin"
 # Password for the CML user.
@@ -46,7 +46,7 @@ install_script() {
     local install_dir="/usr/local/bin"
     ensure_dir $install_dir
 
-    cat >"$install_dir/cml-exporter.py" <<EOF
+    cat >"$install_dir/cml-exporter.py" <<'EOF'
 #!/usr/bin/env python3
 #
 # Copyright (c) 2025  Joe Clarke <jclarke@cisco.com>
@@ -316,7 +316,7 @@ EOF
 install_service_unit() {
     local install_dir="/etc/systemd/system"
     ensure_dir $install_dir
-    cat >"$install_dir/cml-exporter.service" <<EOF
+    cat >"$install_dir/cml-exporter.service" <<'EOF'
 [Unit]
 Description=CML Prometheus Exporter
 After=network.target
@@ -324,7 +324,7 @@ After=virl2.target
 
 [Service]
 EnvironmentFile=/etc/default/cml-exporter
-ExecStartPre=/bin/sh -c "/usr/bin/firewall-cmd -q --zone=public --query-port=${EXPORTER_PORT}/tcp || ( /usr/bin/firewall-cmd --zone public --permanent --add-port='${EXPORTER_PORT}/tcp' && /usr/bin/firewall-cmd --reload )"
+ExecStartPre=+/bin/sh -c "/usr/bin/firewall-cmd -q --zone=public --query-port='${EXPORTER_PORT}/tcp' || ( /usr/bin/firewall-cmd --zone public --permanent --add-port='${EXPORTER_PORT}/tcp' && /usr/bin/firewall-cmd --reload )"
 ExecStart=/opt/cml-exporter/bin/python3 /usr/local/bin/cml-exporter.py
 User=virl2
 Restart=on-failure
