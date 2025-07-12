@@ -33,6 +33,14 @@ build: _sed_script
 	sed -f {{ SED_SCRIPT }} {{ SRC }} > {{ OUT }}
 	chmod +x {{ OUT }}
 
+[group('build')]
+build-clean:
+    rm -f {{ SED_SCRIPT }}
+
+[group('build')]
+spotless: build-clean
+    rm -f {{ OUT }}
+
 # Update dependencies
 [group('lifecycle')]
 update:
@@ -46,12 +54,8 @@ install:
 # Remove temporary files
 [group('lifecycle')]
 clean:
-    rm -rf .venv .pytest_cache .mypy_cache .ruff_cache .coverage htmlcov {{ SED_SCRIPT }}
+    rm -rf .venv .pytest_cache .mypy_cache .ruff_cache .coverage htmlcov
     find . -type d -name "__pycache__" -exec rm -r {} +
-
-[group('lifecycle')]
-spotless: clean
-    rm -f {{ OUT }}
 
 # Recreate project virtualenv from nothing
 [group('lifecycle')]
