@@ -16,14 +16,16 @@ This exporter provides the following metrics:
 
 ## Installation
 
+1. Download the `cml-exporter-install.sh` script to your CML controller.
+
 1. Run the installer script as root on your CML controller:
 
     ```bash
     sudo bash cml-exporter-installer.sh
     ```
 
-2. Edit `/etc/default/cml-exporter` and set the `CML_PASSWORD` variable to your CML admin password.  You may wish to adjust other parameters as well.
-3. Restart the exporter service:
+1. Edit `/etc/default/cml-exporter` and set the `CML_PASSWORD` variable to your CML admin password.  You may wish to adjust other parameters as well.
+1. Restart the exporter service:
 
     ```bash
     sudo systemctl restart cml-exporter.service
